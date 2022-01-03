@@ -17,12 +17,16 @@
           ((= r 0) q)
           (else (gcd (* b q) r)))))
 
-;; A <X, Y> [Pair X Y] is a (make-pair x y), where x is of type X and y is of type Y
+;; A <X Y> [Pair X Y] is a (make-pair x y), where x is of type X and y is of type Y
 (define-struct pair (x y))
 
-;; calculates the bezout coefficients of gcd(a, b)
-;; finds (x, y) s.t. ax + by = gcd(a,b)
-(define (bezout-coefficients a b) ;; bezout-coefficients :: Integer Integer -> [Pair Integer Integer]
-  (b
+;; calculates the order of a mod n ord_n(a)
+(define (ord n a) ;; ord :: Integer Integer -> Integer
+  (ord-helper n a 1))
+
+(define (ord-helper n a k-try) ;; ord-helper :: Integer Integer PosInteger -> Integer
+  (if (= 1 (modulo (expt a k-try) n)) k-try
+      (ord-helper n a (add1 k-try))))
+  
   
   
